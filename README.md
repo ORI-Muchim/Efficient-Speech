@@ -57,8 +57,10 @@ Choose a dataset folder: eg `<data_folder> = /data/tts` - directory where datase
 Download Custom KSS Dataset:
 
 ```
-Comming Soon...
+cd efficientspeech
+mkdir ./data/kss
 ```
+Download Custom KSS Dataset [here](https://drive.google.com/file/d/1ukhAIfuRikTz3B385lS7lBHrHHPvImkL/view?usp=sharing)
 
 Prepare the dataset:  `<parent_folder>` -  where efficientspeech was git cloned.
 
