@@ -142,5 +142,5 @@ LJ_FT_T2_V2/
 *.onnx
 *.swp
 *.ckpt
-
+val_outputs
 data
