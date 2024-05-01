@@ -26,7 +26,7 @@ import validators
 
 from model import EfficientSpeech
 from utils.tools import get_args, write_to_file
-from synthesize import get_lexicon_and_g2p, text2phonemeㅋ
+from synthesize import get_lexicon_and_g2p, text2phoneme
 
 def tts(lexicon, g2p, preprocess_config, model, is_onnx, args, verbose=False):
     text = args.text.strip()
