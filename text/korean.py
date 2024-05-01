@@ -93,16 +93,16 @@ def compare_sentence_with_jamo(text1, text2):
 
 
 def tokenize(text, as_id=False):
-    # jamo package에 있는 hangul_to_jamo를 이용하여 한글 string을 초성/중성/종성으로 나눈다.
+    # Normalize the input text
     text = normalize(text)
-    tokens = list(
-        hangul_to_jamo(text)
-    )  # '존경하는'  --> ['ᄌ', 'ᅩ', 'ᆫ', 'ᄀ', 'ᅧ', 'ᆼ', 'ᄒ', 'ᅡ', 'ᄂ', 'ᅳ', 'ᆫ', '~']
+    tokens = list(hangul_to_jamo(text))  # Example: '존경하는' --> ['ᄌ', 'ᅩ', 'ᆫ', 'ᄀ', 'ᅧ', 'ᆼ', 'ᄒ', 'ᅡ', 'ᄂ', 'ᅳ', 'ᆫ', '~']
+
+    tokens = [token for token in tokens if token.strip()]
 
     if as_id:
-        return [symbol_to_id[token] for token in tokens]
+        return [symbol_to_id.get(token, symbol_to_id[PAD]) for token in tokens]
     else:
-        return [token for token in tokens]
+        return tokens
 
 
 def tokenizer_fn(iterator):
@@ -111,6 +111,8 @@ def tokenizer_fn(iterator):
 
 def normalize(text):
     text = text.strip()
+
+    text = re.sub(r'\s{2,}', '', text)
 
     text = re.sub("\(\d+일\)", "", text)
     text = re.sub("\([⺀-⺙⺛-⻳⼀-⿕々〇〡-〩〸-〺〻㐀-䶵一-鿃豈-鶴侮-頻並-龎]+\)", "", text)

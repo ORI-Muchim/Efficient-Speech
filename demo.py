@@ -26,7 +26,7 @@ import validators
 
 from model import EfficientSpeech
 from utils.tools import get_args, write_to_file
-from synthesize import get_lexicon_and_g2p, text2phoneme
+from synthesize import get_lexicon_and_g2p, text2phonemeㅋ
 
 def tts(lexicon, g2p, preprocess_config, model, is_onnx, args, verbose=False):
     text = args.text.strip()
@@ -115,13 +115,13 @@ if __name__ == "__main__":
         model = ort_session
         is_onnx = True
     else:
-        model = EfficientSpeech(preprocess_config=preprocess_config, 
-                                infer_device=args.infer_device,
-                                hifigan_checkpoint=args.hifigan_checkpoint,)
-
-        model = model.load_from_checkpoint(checkpoint,
-                                           infer_device=args.infer_device,
-                                           map_location=torch.device('cpu'))
+        model = EfficientSpeech.load_from_checkpoint(
+            checkpoint,
+            preprocess_config=preprocess_config,
+            infer_device=args.infer_device,
+            hifigan_checkpoint=args.hifigan_checkpoint,
+            map_location=torch.device('cpu')
+        )
         
 
         model = model.to(args.infer_device)

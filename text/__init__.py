@@ -70,7 +70,6 @@ def _arpabet_to_sequence(text):
 
 
 def _should_keep_symbol(s):
-    #return s in _symbol_to_id and s != '_' and s != '~'
     return s in _symbol_to_id and s != '~' and s != '_'
 
 if __name__ == "__main__":
