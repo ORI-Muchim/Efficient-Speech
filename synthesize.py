@@ -47,7 +47,7 @@ def text2phoneme(lexicon, g2p, text, preprocess_config, verbose=False):
     phone = list(filter(lambda p: p != ' ', phone))
     phone = '{' + '}{'.join(phone) + '}'
     print('phone: ',phone)
-    phone = re.sub(r'\{[^\w\s]?\}', '{sil}', phone)
+    phone = re.sub(r"\{[^\w\s]?\}", "{sp}", phone)
     print('after re.sub: ',phone)
     phone = phone.replace('}{', ' ')
 
