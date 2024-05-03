@@ -16,6 +16,10 @@ from g2p_en import G2p
 from text import text_to_sequence
 from utils.tools import get_mask_from_lengths, synth_one_sample
 
+import codecs
+from g2pk import G2p
+from jamo import h2j
+
 def read_lexicon(lex_path):
     lexicon = {}
     with open(lex_path) as f:
@@ -35,29 +39,25 @@ def get_lexicon_and_g2p(preprocess_config):
 
 
 def text2phoneme(lexicon, g2p, text, preprocess_config, verbose=False):
-    text = text.rstrip(punctuation)
-
-    lang = preprocess_config["preprocessing"]["text"]["language"]
-    phones = []
-    words = re.split(r"([,;.\-\?\!\s+])", text)
-    for w in words:
-        if w.lower() in lexicon:
-            phones += lexicon[w.lower()]
-        elif lang == "t1":
-            phones += list(w.lower())
-        else:
-            phones += list(filter(lambda p: p != " ", g2p(w)))
-    phones = "{" + "}{".join(phones) + "}"
-    phones = re.sub(r"\{[^\w\s]?\}", "{sp}", phones)
-    phones = phones.replace("}{", " ")
+    g2p=G2p()
+    phone = g2p(text)
+    print('after g2p: ',phone)
+    phone = h2j(phone)
+    print('after h2j: ',phone)
+    phone = list(filter(lambda p: p != ' ', phone))
+    phone = '{' + '}{'.join(phone) + '}'
+    print('phone: ',phone)
+    phone = re.sub(r'\{[^\w\s]?\}', '{sil}', phone)
+    print('after re.sub: ',phone)
+    phone = phone.replace('}{', ' ')
 
     if verbose:
         print("Raw Text Sequence: {}".format(text))
-        print("Phoneme Sequence: {}".format(phones))
+        print("Phoneme Sequence: {}".format(phone))
 
     sequence = np.array(
         text_to_sequence(
-            phones, preprocess_config["preprocessing"]["text"]["text_cleaners"]
+            phone, preprocess_config["preprocessing"]["text"]["text_cleaners"]
         )
     )
 
