@@ -137,6 +137,11 @@ For more information, please refer to the following repositories:
 - [carpedm20/multi-speaker-tacotron-tensorflow](https://github.com/carpedm20/multi-speaker-tacotron-tensorflow)
 - [Kyubyong/g2pK](https://github.com/Kyubyong/g2pK)
 
+## To-Do
+
+ * Fix ```synthesize.py```, korean text2phoneme function [✅]
+ * Support Multi-Speaker Embedding [W.I.P.]
+ * Support Multilingual Cleaners [W.I.P.]
 
 ## Citation
 
