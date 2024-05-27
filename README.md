@@ -122,6 +122,11 @@ python3 train.py --n-blocks 3 --reduction 2
 python3 train.py --head 2 --reduction 1 --expansion 2 --kernel-size 5 --n-blocks 3 --block-depth 3
 ```
 
+## Inference
+```
+python3 demo.py --checkpoint ./lightning_logs/version_2/checkpoints/epoch=4999-step=485000.ckpt --text "그는 괜찮은 척하려고 애 쓰는 것 같았다." --wav-filename base.wav
+```
+
 ## Comparison with other SOTA Neural TTS
 
 [ES vs FS2 vs PortaSpeech vs LightSpeech](https://roatienza.github.io/efficientspeech-demo/)
